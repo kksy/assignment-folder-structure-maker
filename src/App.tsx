@@ -23,6 +23,27 @@ function App() {
     setShowForm(false)
   }
 
+  function handleAddNode(parentId: string, node: Node) {
+    const newNode: Node = {
+      id: crypto.randomUUID(),
+      type: node.type,
+      name: node.name,
+    }
+
+    setNodes((currentNodes) =>
+      currentNodes.map((currentNode) => {
+        if (currentNode.id !== parentId) {
+          return currentNode
+        }
+
+        return {
+          ...currentNode,
+          children: [...(currentNode.children ?? []), newNode],
+        }
+      }),
+    )
+  }
+
   return (
     <main>
       <h1 className="heading">Folder Structure Maker</h1>
@@ -31,7 +52,7 @@ function App() {
         {showForm && (
           <AddNodeForm onSubmit={handleFormSubmit} onCancel={() => setShowForm(false)} />
         )}
-        <NodeList nodes={nodes} />
+        <NodeList nodes={nodes} onAddNode={handleAddNode} />
       </div>
     </main>
   )
