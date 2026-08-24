@@ -1,24 +1,68 @@
-.Heading {
-    text-align: center;
-    color: var(--color-text-inverted);
-    background: var(--color-background);
-    margin: 0;
-    padding: 1em;
+.heading {
+	text-align: center;
+	color: var(--color-text-inverted);
+	background: black;
+	margin: 0 0 1rem;
+	padding: 1em;
 }
 
 .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }
 
-.Form__icon {
-    height: 16px;
-    width: 16px;
+.container {
+	margin: 0 1rem;
+}
+
+.node-form {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	border: 1px solid black;
+	padding: .5rem;
+	width: fit-content;
+}
+
+.form__icon {
+	height: 16px;
+	width: 16px;
+}
+
+.form__label {
+	display: flex;
+	flex-direction: row;
+  align-items: center;
+	gap: 0.5rem;
+}
+
+.button {
+	all: unset;
+  outline: revert;
+	padding: 1rem;
+	border-radius: 3px;
+	border: 1px solid black;
+}
+
+.button--primary {
+	color: var(--color-text-inverted);
+	background-color: var(--color-background-inverted);
+}
+
+.button--secondary {
+	background-color: var(--color-background);
+}
+
+.button--sm {
+	padding: 0.125rem;
+	min-width: 16px;
+	min-height: 16px;
+	text-align: center;
 }

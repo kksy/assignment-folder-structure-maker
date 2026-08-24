@@ -1,6 +1,11 @@
 :root {
   --color-text-inverted: white;
-  --color-background: black;
+  --color-background: white;
+  --color-background-inverted: black;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {

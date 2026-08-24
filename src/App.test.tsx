@@ -10,7 +10,7 @@ describe('App', () => {
     expect(screen.queryByRole('form', { name: /add folder/i })).not.toBeInTheDocument()
   })
 
-  it('should create a folder with name when confirm button is clicked', async () => {
+  it('should create a folder with name when confirm button is clicked and close the form', async () => {
     const user = userEvent.setup()
     render(<App />)
     await user.click(screen.getByRole('button', { name: /add folder to root/i }))
@@ -25,6 +25,7 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /confirm/i }))
 
     expect(screen.getByText(expectedFolderName)).toBeInTheDocument()
+    expect(screen.queryByRole('form', { name: /add folder/i })).not.toBeInTheDocument()
   })
 
   it('should not create a folder when button is clicked and no name is set', async () => {

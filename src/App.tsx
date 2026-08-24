@@ -22,35 +22,39 @@ function App() {
     const formData = new FormData(event.target);
     const inputValue = formData.get('name')
     if(inputValue) {
-      setNodes([...nodes, {
-      id: crypto.randomUUID(),
-      type: 'folder',
-      name: inputValue.toString(),
-    }])
+      const newNode: Node = {
+        id: crypto.randomUUID(),
+        type: 'folder',
+        name: inputValue.toString(),
+      }
+
+      setNodes((currentNodes) => [...currentNodes, newNode])
+      setShowForm(false)
     }
-    
   }
 
   return (
     <main>
-      <h1 className="Heading">Folder Structure Maker</h1>
-      <button onClick={handleAddFolderToRootClick}>Add folder to root</button>
-      {showForm && (<form aria-label="Add folder" onSubmit={handleFormSubmit} className="node-form">
-        <label className="input-with-icon">
-          <img className="Form__icon" src={FolderOpenRegularIcon} alt="" />
-          <span className="visually-hidden">Folder name</span>
-          <input aria-label="Folder name" name="name" />
-        </label>
-        <button type="submit" aria-label="confirm">✓</button>
-        <button aria-label="cancel" type="button">x</button>
-      </form>)}
-      <ul>
-        {nodes.map((node) => {
-          return (
-            <li id={node.id}>{node.name}</li>
-          )
-        })}
-      </ul>
+      <h1 className="heading">Folder Structure Maker</h1>
+      <div className="container">
+        <button className="button button--primary" onClick={handleAddFolderToRootClick}>Add folder to root</button>
+        {showForm && (<form className="node-form" aria-label="Add folder" onSubmit={handleFormSubmit} className="node-form">
+          <label className="form__label">
+            <img className="form__icon" src={FolderOpenRegularIcon} alt="" />
+            <span className="visually-hidden">Folder name</span>
+            <input aria-label="Folder name" name="name" />
+          </label>
+          <button className="button button--primary button--sm" type="submit" aria-label="confirm">✓</button>
+          <button className="button button--secondary button--sm" aria-label="cancel" type="button">×</button>
+        </form>)}
+        <ul>
+          {nodes.map((node) => {
+            return (
+              <li id={node.id}>{node.name}</li>
+            )
+          })}
+        </ul>
+      </div>
     </main>
   )
 }
