@@ -1,0 +1,7 @@
+.Heading {
+    text-align: center;
+    color: var(--color-text-inverted);
+    background: var(--color-background);
+    margin: 0;
+    padding: 1em;
+}

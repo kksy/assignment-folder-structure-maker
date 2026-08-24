@@ -1,4 +1,4 @@
-# Assignment: Folder structure manager
+# Assignment: Folder structure maker
 
 ## Running the app
 1. Install

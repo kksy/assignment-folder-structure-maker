@@ -1,2 +1,9 @@
+:root {
+  --color-text-inverted: white;
+  --color-background: black;
+}
 
+body {
+  margin: 0;
+}
 
