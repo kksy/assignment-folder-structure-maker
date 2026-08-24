@@ -41,6 +41,7 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /confirm/i }))
 
     expect(screen.queryByRole('listitem')).not.toBeInTheDocument()
+    expect(screen.queryByRole('form', { name: /add folder/i })).not.toBeInTheDocument()
   })
 
   it('should create a folder node when the unset child is resolved as folder', async () => {
