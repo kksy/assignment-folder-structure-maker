@@ -57,8 +57,11 @@ describe('App', () => {
     await user.hover(projectItem!)
     await user.click(screen.getByRole('button', { name: /add child to project/i }))
     await user.click(screen.getByRole('button', { name: /^folder$/i }))
+    expect(screen.getByRole('form', { name: /add folder/i })).toBeInTheDocument()
+    await user.type(screen.getByRole('textbox', { name: /name/i }), 'Documents')
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
 
-    expect(screen.getByText('new folder')).toBeInTheDocument()
+    expect(screen.getByText('Documents')).toBeInTheDocument()
   })
 
   it('should create a file node when the unset child is resolved as file', async () => {
@@ -75,7 +78,10 @@ describe('App', () => {
     await user.hover(projectItem!)
     await user.click(screen.getByRole('button', { name: /add child to project/i }))
     await user.click(screen.getByRole('button', { name: /^file$/i }))
+    expect(screen.getByRole('form', { name: /add file/i })).toBeInTheDocument()
+    await user.type(screen.getByRole('textbox', { name: /file name/i }), 'README')
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
 
-    expect(screen.getByText('new file')).toBeInTheDocument()
+    expect(screen.getByText('README')).toBeInTheDocument()
   })
 })

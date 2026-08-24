@@ -58,9 +58,16 @@ function App() {
       <div className="container">
         <button className="button button--primary" onClick={handleAddFolderToRootClick}>Add folder to root</button>
         {showForm && (
-          <AddNodeForm onSubmit={handleFormSubmit} onCancel={() => setShowForm(false)} />
+          <AddNodeForm
+            type="folder"
+            onSubmit={handleFormSubmit}
+            onCancel={() => setShowForm(false)}
+          />
         )}
-        <NodeList nodes={nodes} onAddNode={handleAddNode} />
+        <NodeList
+          nodes={nodes}
+          onAddNode={handleAddNode}
+        />
       </div>
     </main>
   )
