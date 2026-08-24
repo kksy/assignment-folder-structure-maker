@@ -24,24 +24,32 @@ function App() {
   }
 
   function handleAddNode(parentId: string, node: Node) {
-    const newNode: Node = {
-      id: crypto.randomUUID(),
-      type: node.type,
-      name: node.name,
+    function updateNodeTree(currentNodes: Node[], targetParentId: string, nodeToAdd: Node): Node[] {
+      return currentNodes.map((currentNode) => {
+        if (currentNode.id === targetParentId) {
+          const children = currentNode.children ?? []
+          const hasMatchingChild = children.some((child) => child.id === nodeToAdd.id)
+
+          return {
+            ...currentNode,
+            children: hasMatchingChild
+              ? children.map((child) => (child.id === nodeToAdd.id ? { ...child, ...nodeToAdd } : child))
+              : [...children, nodeToAdd],
+          }
+        }
+
+        if (currentNode.children) {
+          return {
+            ...currentNode,
+            children: updateNodeTree(currentNode.children, targetParentId, nodeToAdd),
+          }
+        }
+
+        return currentNode
+      })
     }
 
-    setNodes((currentNodes) =>
-      currentNodes.map((currentNode) => {
-        if (currentNode.id !== parentId) {
-          return currentNode
-        }
-
-        return {
-          ...currentNode,
-          children: [...(currentNode.children ?? []), newNode],
-        }
-      }),
-    )
+    setNodes((currentNodes) => updateNodeTree(currentNodes, parentId, node))
   }
 
   return (

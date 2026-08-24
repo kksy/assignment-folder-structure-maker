@@ -8,12 +8,38 @@ type NodeListProps = {
 };
 
 function NodeList({ nodes, onAddNode }: NodeListProps) {
-  function renderNode(node: Node, depth: number): JSX.Element | null {
+  function renderNode(node: Node, depth: number, parentId?: string): JSX.Element {
     if (node.type === 'unset' && depth > 0) {
       return (
         <li key={node.id}>
-          <button type="button">file</button>
-          <button type="button">folder</button>
+          <button
+            type="button"
+            onClick={() => {
+              if (!parentId) return
+
+              onAddNode(parentId, {
+                ...node,
+                type: 'file',
+                name: 'new file',
+              })
+            }}
+          >
+            file
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (!parentId) return
+
+              onAddNode(parentId, {
+                ...node,
+                type: 'folder',
+                name: 'new folder',
+              })
+            }}
+          >
+            folder
+          </button>
         </li>
       )
     }
@@ -23,25 +49,27 @@ function NodeList({ nodes, onAddNode }: NodeListProps) {
         <div className={styles.nodeItemRow}>
           <span>{node.name}</span>
 
-          <button
-            className={styles.nodeItemAddButton}
-            aria-label={`Add child to ${node.name}`}
-            onClick={() => {
-              const unsetChild: Node = {
-                id: crypto.randomUUID(),
-                type: 'unset',
-              }
+          {node.type === 'folder' && (
+            <button
+              className={styles.nodeItemAddButton}
+              aria-label={`Add child to ${node.name}`}
+              onClick={() => {
+                const unsetChild: Node = {
+                  id: crypto.randomUUID(),
+                  type: 'unset',
+                }
 
-              onAddNode(node.id, unsetChild)
-            }}
-          >
-            +
-          </button>
+                onAddNode(node.id, unsetChild)
+              }}
+            >
+              +
+            </button>
+          )}
         </div>
 
         {node.children && node.children.length > 0 && (
           <ul>
-            {node.children.map((child) => renderNode(child, depth + 1))}
+            {node.children.map((child) => renderNode(child, depth + 1, node.id))}
           </ul>
         )}
       </li>

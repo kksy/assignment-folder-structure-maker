@@ -18,7 +18,7 @@ describe('NodeList', () => {
     expect(screen.getByRole('button', { name: /add child to folder a/i })).toBeInTheDocument()
   })
 
-  it('should show children nodes', () => {
+  it('should show folder node when child type is folder', () => {
     const nodes = [
       {
         id: 'node-1',
@@ -41,7 +41,7 @@ describe('NodeList', () => {
     expect(screen.getByRole('button', { name: /add child to folder b/i })).toBeInTheDocument()
   })
 
-  it('should show unset node when type is unset at the second level', () => {
+  it('should show unset node child type is unset', () => {
     const nodes = [
       {
         id: 'node-1',
@@ -60,5 +60,27 @@ describe('NodeList', () => {
 
     expect(screen.getByRole('button', { name: /^file$/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /^folder$/i })).toBeInTheDocument()
+  })
+
+  it('should show file node when child type is file', () => {
+    const nodes = [
+      {
+        id: 'node-1',
+        type: 'folder',
+        name: 'Folder A',
+        children: [
+          {
+            id: 'node-2',
+            type: 'file',
+            name: 'File A',
+          },
+        ],
+      },
+    ] as Node[]
+
+    render(<NodeList nodes={nodes} onAddNode={vi.fn()} />)
+
+    expect(screen.getByText('File A')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /add child to file a/i })).not.toBeInTheDocument()
   })
 })

@@ -42,4 +42,40 @@ describe('App', () => {
 
     expect(screen.queryByRole('listitem')).not.toBeInTheDocument()
   })
+
+  it('should create a folder node when the unset child is resolved as folder', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /add folder to root/i }))
+    await user.type(screen.getByRole('textbox', { name: /name/i }), 'Project')
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
+
+    const projectItem = screen.getByText(/project/i).closest('li')
+    expect(projectItem).not.toBeNull()
+
+    await user.hover(projectItem!)
+    await user.click(screen.getByRole('button', { name: /add child to project/i }))
+    await user.click(screen.getByRole('button', { name: /^folder$/i }))
+
+    expect(screen.getByText('new folder')).toBeInTheDocument()
+  })
+
+  it('should create a file node when the unset child is resolved as file', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /add folder to root/i }))
+    await user.type(screen.getByRole('textbox', { name: /name/i }), 'Project')
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
+
+    const projectItem = screen.getByText(/project/i).closest('li')
+    expect(projectItem).not.toBeNull()
+
+    await user.hover(projectItem!)
+    await user.click(screen.getByRole('button', { name: /add child to project/i }))
+    await user.click(screen.getByRole('button', { name: /^file$/i }))
+
+    expect(screen.getByText('new file')).toBeInTheDocument()
+  })
 })
