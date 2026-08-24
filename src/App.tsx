@@ -2,13 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import AddNodeForm from './components/AddNodeForm';
 import NodeList from './components/NodeList';
-
-type Node = {
-  type: 'folder' | 'file' | 'unset';
-  name?: string;
-  children?: Node[];
-  id: string;
-}
+import type { Node } from './types/node';
 
 function App() {
   const [showForm, setShowForm] = useState(false)

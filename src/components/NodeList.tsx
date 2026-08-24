@@ -1,9 +1,5 @@
-type Node = {
-  type: 'folder' | 'file' | 'unset';
-  name?: string;
-  children?: Node[];
-  id: string;
-};
+import type { Node } from '../types/node';
+import styles from './NodeList.module.css';
 
 type NodeListProps = {
   nodes: Node[];
@@ -11,9 +7,20 @@ type NodeListProps = {
 
 function NodeList({ nodes }: NodeListProps) {
   return (
-    <ul>
+    <ul className={styles.nodeList}>
       {nodes.map((node) => {
-        return <li key={node.id}>{node.name}</li>;
+        return (
+          <li key={node.id} className={styles.nodeItem}>
+            <span className={styles.nodeItemLabel}>{node.name}</span>
+            <button
+              type="button"
+              className={styles.nodeItemAddButton}
+              aria-label={`Add child to ${node.name}`}
+            >
+              +
+            </button>
+          </li>
+        );
       })}
     </ul>
   );

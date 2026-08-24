@@ -1,0 +1,35 @@
+.nodeList {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.nodeItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  width: fit-content;
+}
+
+.nodeItem:hover {
+  border-color: black;
+}
+
+.nodeItemAddButton {
+  opacity: 1;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid black;
+  border-radius: 50%;
+  background: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.nodeItem:hover .nodeItemAddButton {
+  opacity: 1;
+}
