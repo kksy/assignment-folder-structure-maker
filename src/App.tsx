@@ -28,12 +28,12 @@ function App() {
       return currentNodes.map((currentNode) => {
         if (currentNode.id === targetParentId) {
           const children = currentNode.children ?? []
-          const hasMatchingChild = children.some((child) => child.id === nodeToAdd.id)
+          const hasExistingChild = children.some((child) => child.id === nodeToAdd.id)
 
           return {
             ...currentNode,
-            children: hasMatchingChild
-              ? children.map((child) => (child.id === nodeToAdd.id ? { ...child, ...nodeToAdd } : child))
+            children: hasExistingChild
+              ? children.map((child) => (child.id === nodeToAdd.id ? nodeToAdd : child))
               : [...children, nodeToAdd],
           }
         }
