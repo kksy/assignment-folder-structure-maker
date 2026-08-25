@@ -21,30 +21,28 @@ export function SetNode({ node, children, onAddNode, onDeleteNode }: SetNodeProp
         <span>{node.name}</span>
 
         {node.type === 'folder' && (
-            <>
-              <button
-                className={styles.nodeItemAddButton}
-                aria-label={`Add child to ${node.name}`}
-                onClick={() => {
-                  const unsetChild: Node = {
-                    id: crypto.randomUUID(),
-                    type: 'unset',
-                  }
+          <button
+            className={styles.nodeItemButton}
+            aria-label={`Add child to ${node.name}`}
+            onClick={() => {
+              const unsetChild: Node = {
+                id: crypto.randomUUID(),
+                type: 'unset',
+              }
 
-                  onAddNode(node.id, unsetChild)
-                }}
-              >
-                +
-              </button>
-              <button
-                className={styles.nodeItemAddButton}
-                aria-label={`Delete ${node.name}`}
-                onClick={() => onDeleteNode(node.id)}
-              >
-                ×
-              </button>
-            </>
+              onAddNode(node.id, unsetChild)
+            }}
+          >
+            +
+          </button>
         )}
+        <button
+          className={styles.nodeItemButton}
+          aria-label={`Delete ${node.name}`}
+          onClick={() => onDeleteNode(node.id)}
+        >
+          ×
+        </button>
       </div>
 
       {children}

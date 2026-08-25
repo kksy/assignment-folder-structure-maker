@@ -3,6 +3,55 @@
   height: 1rem;
 }
 
+.nodeList {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.nodeList ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.nodeList ul > li {
+  position: relative;
+}
+
+.nodeList ul > li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.5rem;
+  border-left: 1px solid black;
+}
+
+.nodeList ul > li::after {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  left: -0.5rem;
+  width: 0.5rem;
+  border-top: 1px solid black;
+}
+
+.nodeList ul > li:only-child::before {
+  bottom: auto;
+  height: 1rem;
+}
+
+.nodeList ul > li:last-child::before {
+  bottom: auto;
+  height: 1rem;
+}
+
+.nodeList > li::before,
+.nodeList > li::after {
+  display: none;
+}
+
 .nodeItemRow {
   display: flex;
   align-items: center;
@@ -16,7 +65,7 @@
   border-color: black;
 }
 
-.nodeItemAddButton {
+.nodeItemButton {
   width: 1.5rem;
   height: 1.5rem;
   border: 1px solid black;

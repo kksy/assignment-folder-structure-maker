@@ -83,6 +83,32 @@ describe('NodeList', () => {
 
     expect(screen.getByText('File A')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /add child to file a/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /delete file a/i })).toBeInTheDocument()
+  })
+
+  it('should delete a file node by its id', async () => {
+    const user = userEvent.setup()
+    const onDeleteNode = vi.fn()
+    const nodes = [
+      {
+        id: 'node-1',
+        type: 'folder',
+        name: 'Folder A',
+        children: [
+          {
+            id: 'node-2',
+            type: 'file',
+            name: 'File A',
+          },
+        ],
+      },
+    ] as Node[]
+
+    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onDeleteNode={onDeleteNode} />)
+
+    await user.click(screen.getByRole('button', { name: /delete file a/i }))
+
+    expect(onDeleteNode).toHaveBeenCalledWith('node-2')
   })
 
   it('should show the naming form inside the unset node when a type is selected', async () => {
