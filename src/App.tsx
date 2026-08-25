@@ -76,6 +76,7 @@ function App() {
           onDeleteNode={handleDeleteNode}
         />
       </div>
+      <pre>{JSON.stringify(nodes)}</pre>
     </main>
   )
 }

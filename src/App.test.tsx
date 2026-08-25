@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import App from './App'
@@ -52,7 +52,8 @@ describe('App', () => {
     await user.type(screen.getByRole('textbox', { name: /name/i }), 'Project')
     await user.click(screen.getByRole('button', { name: /confirm/i }))
 
-    const projectItem = screen.getByText(/project/i).closest('li')
+    const projectList = screen.getAllByRole('list')[0]
+    const projectItem = within(projectList).getByText(/project/i).closest('li')
     expect(projectItem).not.toBeNull()
 
     await user.hover(projectItem!)
@@ -73,7 +74,8 @@ describe('App', () => {
     await user.type(screen.getByRole('textbox', { name: /name/i }), 'Project')
     await user.click(screen.getByRole('button', { name: /confirm/i }))
 
-    const projectItem = screen.getByText(/project/i).closest('li')
+    const projectList = screen.getAllByRole('list')[0]
+    const projectItem = within(projectList).getByText(/project/i).closest('li')
     expect(projectItem).not.toBeNull()
 
     await user.hover(projectItem!)
@@ -94,7 +96,8 @@ describe('App', () => {
     await user.type(screen.getByRole('textbox', { name: /folder name/i }), 'Project')
     await user.click(screen.getByRole('button', { name: /confirm/i }))
 
-    const projectItem = screen.getByText('Project').closest('li')
+    const projectList = screen.getAllByRole('list')[0]
+    const projectItem = within(projectList).getByText('Project').closest('li')
     expect(projectItem).not.toBeNull()
 
     await user.click(screen.getByRole('button', { name: /add child to project/i }))
@@ -112,7 +115,8 @@ describe('App', () => {
     await user.type(screen.getByRole('textbox', { name: /folder name/i }), 'Project')
     await user.click(screen.getByRole('button', { name: /confirm/i }))
 
-    const projectItem = screen.getByText('Project').closest('li')
+    const projectList = screen.getAllByRole('list')[0]
+    const projectItem = within(projectList).getByText('Project').closest('li')
     expect(projectItem).not.toBeNull()
 
     await user.click(screen.getByRole('button', { name: /add child to project/i }))
