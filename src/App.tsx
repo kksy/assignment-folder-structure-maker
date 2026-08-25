@@ -75,8 +75,9 @@ function App() {
           onAddNode={handleAddNode}
           onDeleteNode={handleDeleteNode}
         />
+        <div>{JSON.stringify(nodes)}</div>
       </div>
-      <pre>{JSON.stringify(nodes)}</pre>
+      
     </main>
   )
 }
