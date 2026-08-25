@@ -86,6 +86,24 @@ describe('App', () => {
     expect(screen.getByText('README')).toBeInTheDocument()
   })
 
+  it('should delete an unset child when its form is cancelled', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /add folder to root/i }))
+    await user.type(screen.getByRole('textbox', { name: /folder name/i }), 'Project')
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
+
+    const projectItem = screen.getByText('Project').closest('li')
+    expect(projectItem).not.toBeNull()
+
+    await user.click(screen.getByRole('button', { name: /add child to project/i }))
+    await user.click(screen.getByRole('button', { name: /^folder$/i }))
+    await user.click(screen.getByRole('button', { name: /cancel/i }))
+
+    expect(projectItem?.querySelector('ul')).not.toBeInTheDocument()
+  })
+
   it('should delete a folder and its children', async () => {
     const user = userEvent.setup()
     render(<App />)

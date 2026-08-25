@@ -23,14 +23,7 @@ export function UnsetNode({ node, parentId, onAddNode, onDeleteNode }: UnsetNode
             onAddNode(parentId, { ...node, type: selectedNodeType, name })
             setSelectedNodeType(null)
           }}
-          onCancel={() => {
-            if (!parentId) {
-              onDeleteNode(node.id)
-              return
-            }
-
-            setSelectedNodeType(null)
-          }}
+          onCancel={() => onDeleteNode(node.id)}
         />
       ) : (
         <>
