@@ -1,6 +1,7 @@
 import type { SubmitEvent } from 'react';
 import FileRegularIcon from '../icons/file-regular.svg';
 import FolderOpenRegularIcon from '../icons/folder-open-regular.svg';
+import styles from './AddNodeForm.module.css';
 
 type AddNodeFormProps = {
   onSubmit: (name: string) => void;
@@ -27,9 +28,9 @@ function AddNodeForm({ onSubmit, onCancel, type }: AddNodeFormProps) {
   }
 
   return (
-    <form className="node-form" aria-label={`Add ${nodeLabel}`} onSubmit={handleSubmit}>
-      <label className="form__label">
-        <img className="form__icon" src={nodeIcon} alt="" />
+    <form className={styles.nodeForm} aria-label={`Add ${nodeLabel}`} onSubmit={handleSubmit}>
+      <label className={styles.formLabel}>
+        <img className={styles.formIcon} src={nodeIcon} alt="" />
         <span className="visually-hidden">{nodeLabel} name</span>
         <input aria-label={`${nodeLabel} name`} name="name" />
       </label>

@@ -1,0 +1,20 @@
+.nodeForm {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid black;
+  padding: 0.5rem;
+  width: fit-content;
+}
+
+.formIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
