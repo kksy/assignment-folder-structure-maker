@@ -85,4 +85,26 @@ describe('App', () => {
 
     expect(screen.getByText('README')).toBeInTheDocument()
   })
+
+  it('should delete a folder and its children', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /add folder to root/i }))
+    await user.type(screen.getByRole('textbox', { name: /folder name/i }), 'Project')
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
+
+    const projectItem = screen.getByText('Project').closest('li')
+    expect(projectItem).not.toBeNull()
+
+    await user.click(screen.getByRole('button', { name: /add child to project/i }))
+    await user.click(screen.getByRole('button', { name: /^folder$/i }))
+    await user.type(screen.getByRole('textbox', { name: /folder name/i }), 'Documents')
+    await user.click(screen.getByRole('button', { name: /confirm/i }))
+
+    await user.click(screen.getByRole('button', { name: /delete project/i }))
+
+    expect(screen.queryByText('Project')).not.toBeInTheDocument()
+    expect(screen.queryByText('Documents')).not.toBeInTheDocument()
+  })
 })

@@ -52,6 +52,18 @@ function App() {
     setNodes((currentNodes) => updateNodeTree(currentNodes, parentId, node))
   }
 
+  function handleDeleteNode(nodeId: string) {
+    function removeNode(currentNodes: Node[]): Node[] {
+      return currentNodes
+        .filter((node) => node.id !== nodeId)
+        .map((node) => node.children
+          ? { ...node, children: removeNode(node.children) }
+          : node)
+    }
+
+    setNodes((currentNodes) => removeNode(currentNodes))
+  }
+
   return (
     <main>
       <h1 className="heading">Folder Structure Maker</h1>
@@ -67,6 +79,7 @@ function App() {
         <NodeList
           nodes={nodes}
           onAddNode={handleAddNode}
+          onDeleteNode={handleDeleteNode}
         />
       </div>
     </main>

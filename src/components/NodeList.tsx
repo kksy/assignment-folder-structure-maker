@@ -7,9 +7,10 @@ import styles from './NodeList.module.css';
 type NodeListProps = {
   nodes: Node[];
   onAddNode: (parentId: string, node: Node) => void;
+  onDeleteNode: (nodeId: string) => void;
 };
 
-function NodeList({ nodes, onAddNode }: NodeListProps) {
+function NodeList({ nodes, onAddNode, onDeleteNode }: NodeListProps) {
   function renderNode(node: Node, parentId?: string): JSX.Element {
     if (node.type === 'unset') {
       return (
@@ -23,7 +24,12 @@ function NodeList({ nodes, onAddNode }: NodeListProps) {
     }
 
     return (
-      <SetNode key={node.id} node={node} onAddNode={onAddNode}>
+      <SetNode
+        key={node.id}
+        node={node}
+        onAddNode={onAddNode}
+        onDeleteNode={onDeleteNode}
+      >
         {node.children && node.children.length > 0 && (
           <ul>
             {node.children.map((child) => renderNode(child, node.id))}
