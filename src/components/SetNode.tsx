@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import FileRegularIcon from '../icons/file-regular.svg';
+import FolderOpenRegularIcon from '../icons/folder-open-regular.svg';
 import type { Node } from '../types/node';
 import styles from './NodeList.module.css';
 
@@ -10,9 +12,12 @@ type SetNodeProps = {
 };
 
 export function SetNode({ node, children, onAddNode, onDeleteNode }: SetNodeProps) {
+  const nodeIcon = node.type === 'file' ? FileRegularIcon : FolderOpenRegularIcon;
+
   return (
     <li>
       <div className={styles.nodeItemRow}>
+        <img className={styles.nodeIcon} src={nodeIcon} alt="" />
         <span>{node.name}</span>
 
         {node.type === 'folder' && (
