@@ -6,7 +6,7 @@ import styles from './NodeList.module.css';
 
 type NodeListProps = {
   nodes: Node[];
-  onAddNode: (parentId: string, node: Node) => void;
+  onAddNode: (parentId: string | undefined, node: Node) => void;
   onDeleteNode: (nodeId: string) => void;
 };
 
@@ -19,6 +19,7 @@ function NodeList({ nodes, onAddNode, onDeleteNode }: NodeListProps) {
           node={node}
           parentId={parentId}
           onAddNode={onAddNode}
+          onDeleteNode={onDeleteNode}
         />
       )
     }

@@ -20,6 +20,7 @@ function AddNodeForm({ onSubmit, onCancel, type }: AddNodeFormProps) {
 
     if (inputValue) {
       onSubmit(inputValue);
+      return;
     }
 
     onCancel();

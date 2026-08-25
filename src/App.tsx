@@ -1,29 +1,30 @@
 import { useState } from 'react';
 import './App.css';
-import AddNodeForm from './components/AddNodeForm';
 import NodeList from './components/NodeList';
 import type { Node } from './types/node';
 
 function App() {
-  const [showForm, setShowForm] = useState(false)
   const [nodes, setNodes] = useState<Node[]>([])
   
   function handleAddFolderToRootClick() {
-    setShowForm(true)
+    handleAddNode(undefined, {
+      id: crypto.randomUUID(),
+      type: 'unset',
+    })
   }
 
-  function handleFormSubmit(name: string) {
-    const newNode: Node = {
-      id: crypto.randomUUID(),
-      type: 'folder',
-      name,
+  function handleAddNode(parentId: string | undefined, node: Node) {
+    if (!parentId) {
+      setNodes((currentNodes) => {
+        const hasExistingNode = currentNodes.some((currentNode) => currentNode.id === node.id)
+
+        return hasExistingNode
+          ? currentNodes.map((currentNode) => (currentNode.id === node.id ? node : currentNode))
+          : [...currentNodes, node]
+      })
+      return
     }
 
-    setNodes((currentNodes) => [...currentNodes, newNode])
-    setShowForm(false)
-  }
-
-  function handleAddNode(parentId: string, node: Node) {
     function updateNodeTree(currentNodes: Node[], targetParentId: string, nodeToAdd: Node): Node[] {
       return currentNodes.map((currentNode) => {
         if (currentNode.id === targetParentId) {
@@ -69,13 +70,6 @@ function App() {
       <h1 className="heading">Folder Structure Maker</h1>
       <div className="container">
         <button className="button button--primary" onClick={handleAddFolderToRootClick}>Add folder to root</button>
-        {showForm && (
-          <AddNodeForm
-            type="folder"
-            onSubmit={handleFormSubmit}
-            onCancel={() => setShowForm(false)}
-          />
-        )}
         <NodeList
           nodes={nodes}
           onAddNode={handleAddNode}
