@@ -14,11 +14,11 @@
   padding-left: 1.5rem;
 }
 
-.nodeList li {
+.nodeList ul > li {
   position: relative;
 }
 
-.nodeList li::before {
+.nodeList ul > li::before {
   content: '';
   position: absolute;
   top: 0;
@@ -27,7 +27,7 @@
   border-left: 1px solid black;
 }
 
-.nodeList li::after {
+.nodeList ul > li::after {
   content: '';
   position: absolute;
   top: 1rem;
@@ -36,18 +36,18 @@
   border-top: 1px solid black;
 }
 
-.nodeList li:only-child::before {
+.nodeList ul > li:only-child::before {
   bottom: auto;
   height: 1rem;
 }
 
-.nodeList li:last-child::before {
+.nodeList ul > li:last-child::before {
   bottom: auto;
   height: 1rem;
 }
 
-.nodeList li::before,
-.nodeList li::after {
+.nodeList > li::before,
+.nodeList > li::after {
   display: none;
 }
 
