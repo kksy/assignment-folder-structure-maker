@@ -5,11 +5,11 @@ import AddNodeForm from './AddNodeForm';
 type UnsetNodeProps = {
   node: Node;
   parentId?: string;
-  onAddNode: (parentId: string | undefined, node: Node) => void;
+  onUpdateNode: (nodeId: string, updates: Pick<Node, 'type' | 'name'>) => void;
   onDeleteNode: (nodeId: string) => void;
 };
 
-export function UnsetNode({ node, parentId, onAddNode, onDeleteNode }: UnsetNodeProps) {
+export function UnsetNode({ node, parentId, onUpdateNode, onDeleteNode }: UnsetNodeProps) {
   const [selectedNodeType, setSelectedNodeType] = useState<
     'file' | 'folder' | null
   >(parentId ? null : 'folder')
@@ -20,7 +20,7 @@ export function UnsetNode({ node, parentId, onAddNode, onDeleteNode }: UnsetNode
         <AddNodeForm
           type={selectedNodeType}
           onSubmit={(name) => {
-            onAddNode(parentId, { ...node, type: selectedNodeType, name })
+            onUpdateNode(node.id, { type: selectedNodeType, name })
             setSelectedNodeType(null)
           }}
           onCancel={() => onDeleteNode(node.id)}

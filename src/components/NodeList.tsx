@@ -6,11 +6,12 @@ import styles from './NodeList.module.css';
 
 type NodeListProps = {
   nodes: Node[];
-  onAddNode: (parentId: string | undefined, node: Node) => void;
+  onAddNode: (parentId: string | undefined) => void;
+  onUpdateNode: (nodeId: string, updates: Pick<Node, 'type' | 'name'>) => void;
   onDeleteNode: (nodeId: string) => void;
 };
 
-function NodeList({ nodes, onAddNode, onDeleteNode }: NodeListProps) {
+function NodeList({ nodes, onAddNode, onUpdateNode, onDeleteNode }: NodeListProps) {
   function renderNode(node: Node, parentId?: string): JSX.Element {
     if (node.type === 'unset') {
       return (
@@ -18,7 +19,7 @@ function NodeList({ nodes, onAddNode, onDeleteNode }: NodeListProps) {
           key={node.id}
           node={node}
           parentId={parentId}
-          onAddNode={onAddNode}
+          onUpdateNode={onUpdateNode}
           onDeleteNode={onDeleteNode}
         />
       )
