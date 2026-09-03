@@ -7,7 +7,7 @@ import styles from './NodeList.module.css';
 type SetNodeProps = {
   node: Node;
   children?: ReactNode;
-  onAddNode: (parentId: string, node: Node) => void;
+  onAddNode: (parentId: string) => void;
   onDeleteNode: (nodeId: string) => void;
 };
 
@@ -24,14 +24,7 @@ export function SetNode({ node, children, onAddNode, onDeleteNode }: SetNodeProp
           <button
             className={styles.nodeItemButton}
             aria-label={`Add child to ${node.name}`}
-            onClick={() => {
-              const unsetChild: Node = {
-                id: crypto.randomUUID(),
-                type: 'unset',
-              }
-
-              onAddNode(node.id, unsetChild)
-            }}
+            onClick={() => onAddNode(node.id)}
           >
             +
           </button>

@@ -13,7 +13,7 @@ describe('NodeList', () => {
       },
     ] as Node[]
 
-    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onDeleteNode={vi.fn()} />)
+    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onUpdateNode={vi.fn()} onDeleteNode={vi.fn()} />)
 
     expect(screen.getByText('Folder A')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /add child to folder a/i })).toBeInTheDocument()
@@ -36,7 +36,7 @@ describe('NodeList', () => {
     ] as Node[]
 
 
-    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onDeleteNode={vi.fn()} />)
+    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onUpdateNode={vi.fn()} onDeleteNode={vi.fn()} />)
 
     expect(screen.getByText('Folder B')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /add child to folder b/i })).toBeInTheDocument()
@@ -57,7 +57,7 @@ describe('NodeList', () => {
       },
     ] as Node[]
 
-    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onDeleteNode={vi.fn()} />)
+    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onUpdateNode={vi.fn()} onDeleteNode={vi.fn()} />)
 
     expect(screen.getByRole('button', { name: /^file$/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /^folder$/i })).toBeInTheDocument()
@@ -79,7 +79,7 @@ describe('NodeList', () => {
       },
     ] as Node[]
 
-    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onDeleteNode={vi.fn()} />)
+    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onUpdateNode={vi.fn()} onDeleteNode={vi.fn()} />)
 
     expect(screen.getByText('File A')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /add child to file a/i })).not.toBeInTheDocument()
@@ -104,7 +104,7 @@ describe('NodeList', () => {
       },
     ] as Node[]
 
-    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onDeleteNode={onDeleteNode} />)
+    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onUpdateNode={vi.fn()} onDeleteNode={onDeleteNode} />)
 
     await user.click(screen.getByRole('button', { name: /delete file a/i }))
 
@@ -127,7 +127,7 @@ describe('NodeList', () => {
       },
     ] as Node[]
 
-    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onDeleteNode={vi.fn()} />)
+    render(<NodeList nodes={nodes} onAddNode={vi.fn()} onUpdateNode={vi.fn()} onDeleteNode={vi.fn()} />)
 
     const folderButton = screen.getByRole('button', { name: /^folder$/i })
 
